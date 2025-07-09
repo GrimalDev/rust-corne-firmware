@@ -13,22 +13,22 @@ pub extern "C" fn start() -> ! {
     // Set GPIO 2 as output
     unsafe {
         // Enable GPIO 2
-        *GPIO_ENABLE_W1TS = 1 << 2;
+        *GPIO_ENABLE_W1TS = 1 << 5;
+        *GPIO_OUT_W1TC = 1 << 2;
+        *GPIO_OUT_W1TS = 0 << 2;
     }
 
     loop {
         // Set GPIO 2 high
         unsafe {
-            *GPIO_OUT_W1TS = 1 << 2;
+            *GPIO_OUT_W1TS = 1 << 5;
         }
-        delay(500); // Delay for 500 ms
-
+        delay(500);
         // Set GPIO 2 low
         unsafe {
-            *GPIO_OUT_W1TC = 1 << 2;
+            *GPIO_OUT_W1TS = 0 << 5;
         }
-        delay(500); // Delay for 500 ms
-    }
+        delay(500);    }
 }
 
 fn delay(ms: u32) {
